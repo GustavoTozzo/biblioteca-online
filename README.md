@@ -10,7 +10,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [x] **Fase 2** — Setup (Next.js 16, Tailwind v4, Prisma + Neon, NextAuth/Auth.js, CSP, CI) — decisões em [`docs/decisoes-fase-2.md`](docs/decisoes-fase-2.md)
 - [x] **Fase 3** — Catálogo público, cadastro/login, painel admin com busca na Open Library — decisões em [`docs/decisoes-fase-3.md`](docs/decisoes-fase-3.md)
 - [x] **Fase 4** — Fluxo de aluguel unitário (carrinho, checkout, pagamento simulado, "Meus Livros") — decisões em [`docs/decisoes-fase-4.md`](docs/decisoes-fase-4.md)
-- [ ] Fase 5 — Fluxo de assinatura
+- [x] **Fase 5** — Fluxo de assinatura (planos, checkout Pix/cartão, "Meus Livros" com acesso total) — decisões em [`docs/decisoes-fase-5.md`](docs/decisoes-fase-5.md)
 - [ ] Fase 6 — Leitor interno simulado + progresso de leitura + perfil
 - [ ] Fase 7 — Painel admin completo (CRUD de livros, usuários, exportação CSV)
 - [ ] Fase 8 — Polish, testes, Lighthouse e deploy no Vercel — **bloqueada**: precisa de uma conta Vercel
@@ -23,6 +23,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [`docs/decisoes-fase-2.md`](docs/decisoes-fase-2.md) — mudança de configuração do Prisma 7 (datasource saiu do `schema.prisma`), driver adapter da Neon, NextAuth/Auth.js v5, CSP testada empiricamente
 - [`docs/decisoes-fase-3.md`](docs/decisoes-fase-3.md) — integração Open Library confirmada em uso real, padrão `signIn(FormData)` com `redirectTo`, papel do usuário nunca vem do formulário público, validação de CPF (checksum), exclusão de livro protegida por integridade referencial
 - [`docs/decisoes-fase-4.md`](docs/decisoes-fase-4.md) — carrinho com `useSyncExternalStore`, Server Action chamada fora de formulário via `useActionState`+`startTransition`, servidor nunca confia em preço/dados vindos do cliente, cartão nunca persiste além dos 4 últimos dígitos
+- [`docs/decisoes-fase-5.md`](docs/decisoes-fase-5.md) — assinatura só aceita Pix/cartão, contratar novo plano cancela o anterior, "Meus Livros" já estava pronto pra composição com assinatura desde a Fase 2
 
 ## Pendências
 

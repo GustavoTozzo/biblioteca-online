@@ -1,4 +1,20 @@
+import type { PlanoAssinatura } from "@prisma/client";
+
 import { prisma } from "@/lib/prisma";
+
+export type AssinaturaAtivaResumo = {
+  plano: PlanoAssinatura;
+  dataFim: Date;
+};
+
+export async function buscarAssinaturaAtiva(
+  usuarioId: string,
+): Promise<AssinaturaAtivaResumo | null> {
+  const assinatura = await prisma.assinatura.findFirst({
+    where: { usuarioId, status: "ATIVA", dataFim: { gte: new Date() } },
+  });
+  return assinatura ? { plano: assinatura.plano, dataFim: assinatura.dataFim } : null;
+}
 
 export type LivroComOrigem = {
   livroId: string;
