@@ -12,7 +12,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [x] **Fase 4** — Fluxo de aluguel unitário (carrinho, checkout, pagamento simulado, "Meus Livros") — decisões em [`docs/decisoes-fase-4.md`](docs/decisoes-fase-4.md)
 - [x] **Fase 5** — Fluxo de assinatura (planos, checkout Pix/cartão, "Meus Livros" com acesso total) — decisões em [`docs/decisoes-fase-5.md`](docs/decisoes-fase-5.md)
 - [x] **Fase 6** — Leitor interno simulado, progresso de leitura e perfil — decisões em [`docs/decisoes-fase-6.md`](docs/decisoes-fase-6.md)
-- [ ] Fase 7 — Painel admin completo (CRUD de livros, usuários, exportação CSV)
+- [x] **Fase 7** — Painel admin completo (lista de usuários, exportação CSV) — decisões em [`docs/decisoes-fase-7.md`](docs/decisoes-fase-7.md)
 - [ ] Fase 8 — Polish, testes, Lighthouse e deploy no Vercel — **bloqueada**: precisa de uma conta Vercel
 
 ## Documentos
@@ -25,6 +25,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [`docs/decisoes-fase-4.md`](docs/decisoes-fase-4.md) — carrinho com `useSyncExternalStore`, Server Action chamada fora de formulário via `useActionState`+`startTransition`, servidor nunca confia em preço/dados vindos do cliente, cartão nunca persiste além dos 4 últimos dígitos
 - [`docs/decisoes-fase-5.md`](docs/decisoes-fase-5.md) — assinatura só aceita Pix/cartão, contratar novo plano cancela o anterior, "Meus Livros" já estava pronto pra composição com assinatura desde a Fase 2
 - [`docs/decisoes-fase-6.md`](docs/decisoes-fase-6.md) — barra de progresso sem `style` inline (CSP), acesso ao leitor sempre revalidado, e-mail/CPF não editáveis por design, bug de fuso na data de nascimento corrigido
+- [`docs/decisoes-fase-7.md`](docs/decisoes-fase-7.md) — CSV corrige aspas não escapadas do protótipo Java, nunca exporta e-mail/senha, guard testado nas duas camadas (403 real + redirect)
 
 ## Pendências
 

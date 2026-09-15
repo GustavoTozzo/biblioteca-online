@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminDashboard() {
@@ -12,14 +14,20 @@ export default async function AdminDashboard() {
         Painel administrativo
       </h1>
       <div className="flex gap-4">
-        <div className="rounded border border-grafite/20 p-4">
+        <Link
+          href="/admin/livros"
+          className="rounded border border-grafite/20 p-4 hover:border-vinho"
+        >
           <p className="text-sm text-grafite">Livros no acervo</p>
           <p className="text-3xl text-vinho">{totalLivros}</p>
-        </div>
-        <div className="rounded border border-grafite/20 p-4">
+        </Link>
+        <Link
+          href="/admin/usuarios"
+          className="rounded border border-grafite/20 p-4 hover:border-vinho"
+        >
           <p className="text-sm text-grafite">Usuários cadastrados</p>
           <p className="text-3xl text-vinho">{totalUsuarios}</p>
-        </div>
+        </Link>
       </div>
     </div>
   );

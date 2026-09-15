@@ -24,6 +24,12 @@ export default async function AdminLayout({
         <Link href="/admin/livros" className="hover:text-vinho">
           Livros
         </Link>
+        <Link href="/admin/usuarios" className="hover:text-vinho">
+          Usuários
+        </Link>
+        <Link href="/admin/exportar" className="hover:text-vinho">
+          Exportar
+        </Link>
       </aside>
       <div className="flex-1 p-6">{children}</div>
     </div>
