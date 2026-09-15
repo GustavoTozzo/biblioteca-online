@@ -17,15 +17,6 @@ const ROTAS_AUTENTICADAS = [
 
 export default auth((req) => {
   const { pathname } = req.nextUrl;
-  // DIAGNÓSTICO TEMPORÁRIO — investigando bug do redirect pra localhost em
-  // produção. Só escreve no runtime log privado da Vercel, nada público.
-  // Remover assim que o diagnóstico terminar.
-  console.log("[diag-auth-url]", {
-    AUTH_URL: process.env.AUTH_URL ?? null,
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL ?? null,
-    nextUrlOrigin: req.nextUrl.origin,
-    pathname,
-  });
   const estaLogado = !!req.auth;
   const ehAdmin = req.auth?.user?.papel === "ADMINISTRADOR";
 
