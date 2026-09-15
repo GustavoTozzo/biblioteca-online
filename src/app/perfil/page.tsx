@@ -5,6 +5,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
 import { PerfilForm } from "./perfil-form";
+import { TrocarSenhaForm } from "./trocar-senha-form";
 
 export const metadata: Metadata = { title: "Meus dados" };
 
@@ -21,7 +22,10 @@ export default async function PerfilPage() {
     <main className="flex-1 px-6 py-10">
       <div className="mx-auto max-w-2xl">
         <h1 className="mb-6 font-heading text-3xl text-vinho">Meus dados</h1>
-        <PerfilForm usuario={usuario} />
+        <div className="flex flex-col gap-8">
+          <PerfilForm usuario={usuario} />
+          <TrocarSenhaForm />
+        </div>
       </div>
     </main>
   );
