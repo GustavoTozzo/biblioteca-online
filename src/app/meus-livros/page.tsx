@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
@@ -52,9 +53,12 @@ export default async function MeusLivrosPage() {
                     ? "Via assinatura"
                     : `Disponível até ${livro.disponivelAte?.toLocaleDateString("pt-BR")}`}
                 </span>
-                <span className="text-xs text-grafite italic">
-                  Leitor chega na próxima fase
-                </span>
+                <Link
+                  href={`/meus-livros/${livro.livroId}/ler`}
+                  className="text-sm text-vinho underline"
+                >
+                  Ler
+                </Link>
               </div>
             ))}
           </div>

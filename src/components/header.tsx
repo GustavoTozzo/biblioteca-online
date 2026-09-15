@@ -27,7 +27,9 @@ export async function Header() {
             <Link href="/meus-livros" className="hover:text-vinho">
               Meus livros
             </Link>
-            <span className="text-grafite">{session.user.name}</span>
+            <Link href="/perfil" className="text-grafite hover:text-vinho">
+              {session.user.name}
+            </Link>
             <form action={sair}>
               <button type="submit" className="hover:text-vinho">
                 Sair
