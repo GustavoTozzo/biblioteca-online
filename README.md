@@ -8,7 +8,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 
 - [x] **Fase 1** — Plano de design e modelagem de dados
 - [x] **Fase 2** — Setup (Next.js 16, Tailwind v4, Prisma + Neon, NextAuth/Auth.js, CSP, CI) — decisões em [`docs/decisoes-fase-2.md`](docs/decisoes-fase-2.md)
-- [ ] Fase 3 — Catálogo público + integração Open Library no admin
+- [x] **Fase 3** — Catálogo público, cadastro/login, painel admin com busca na Open Library — decisões em [`docs/decisoes-fase-3.md`](docs/decisoes-fase-3.md)
 - [ ] Fase 4 — Fluxo de aluguel unitário
 - [ ] Fase 5 — Fluxo de assinatura
 - [ ] Fase 6 — Leitor interno simulado + progresso de leitura + perfil
@@ -21,11 +21,11 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [`docs/plano-de-design.md`](docs/plano-de-design.md) — paleta, tipografia, wireframes ASCII, princípios de design
 - [`docs/modelagem-dados.md`](docs/modelagem-dados.md) — schema Prisma completo e o porquê de cada decisão (granularidade do aluguel, integração Open Library, composição de "Meus Livros", o que nunca é persistido no pagamento simulado)
 - [`docs/decisoes-fase-2.md`](docs/decisoes-fase-2.md) — mudança de configuração do Prisma 7 (datasource saiu do `schema.prisma`), driver adapter da Neon, NextAuth/Auth.js v5, CSP testada empiricamente
+- [`docs/decisoes-fase-3.md`](docs/decisoes-fase-3.md) — integração Open Library confirmada em uso real, padrão `signIn(FormData)` com `redirectTo`, papel do usuário nunca vem do formulário público, validação de CPF (checksum), exclusão de livro protegida por integridade referencial
 
 ## Pendências
 
 - [ ] Criar/confirmar conta na [Vercel](https://vercel.com) — necessário para o deploy final na Fase 8
-- [ ] Definir credenciais do usuário administrador inicial (seed) — ficam só em `.env` local, nunca commitadas
 
 Este projeto é 100% simulado no que toca pagamento: nenhuma integração com gateway real, nenhum dado financeiro real é coletado ou persistido.
 
@@ -33,10 +33,11 @@ Este projeto é 100% simulado no que toca pagamento: nenhuma integração com ga
 
 ```bash
 pnpm install
+pnpm db:seed        # cria o único usuário ADMINISTRADOR (ADMIN_SEED_EMAIL/PASSWORD no .env)
 pnpm dev            # http://localhost:3030
 pnpm typecheck
 pnpm lint
 pnpm build && pnpm start   # build de produção
 ```
 
-Precisa de um `.env` local (ver `.env.example`) com `DATABASE_URL`/`DIRECT_URL` (Neon) e `AUTH_SECRET`/`AUTH_URL`.
+Precisa de um `.env` local (ver `.env.example`) com `DATABASE_URL`/`DIRECT_URL` (Neon), `AUTH_SECRET`/`AUTH_URL` e `ADMIN_SEED_EMAIL`/`ADMIN_SEED_PASSWORD`.
