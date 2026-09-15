@@ -19,6 +19,9 @@ export async function Header() {
         <Link href="/planos" className={linkNav}>
           Planos
         </Link>
+        <Link href="/gratuitos" className={linkNav}>
+          Grátis
+        </Link>
         <CartBadge />
         {session?.user ? (
           <>

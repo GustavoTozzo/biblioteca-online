@@ -15,7 +15,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [x] **Fase 7** — Painel admin completo (lista de usuários, exportação CSV) — decisões em [`docs/decisoes-fase-7.md`](docs/decisoes-fase-7.md)
 - [x] **Fase 8** — Polish + deploy no Vercel — decisões em [`docs/decisoes-fase-8.md`](docs/decisoes-fase-8.md)
 
-**No ar:** [biblioteca-online-snowy.vercel.app](https://biblioteca-online-snowy.vercel.app/) — ajustes pós-deploy (bug de redirecionamento, catálogo em português consistente, capas em alta resolução, refresh visual) documentados em [`docs/decisoes-pos-deploy.md`](docs/decisoes-pos-deploy.md).
+**No ar:** [biblioteca-online-snowy.vercel.app](https://biblioteca-online-snowy.vercel.app/) — ajustes pós-deploy (bug de redirecionamento, catálogo em português consistente, capas em alta resolução, refresh visual) documentados em [`docs/decisoes-pos-deploy.md`](docs/decisoes-pos-deploy.md). A página [`/gratuitos`](https://biblioteca-online-snowy.vercel.app/gratuitos) traz uma pequena vitrine de livros de domínio público com download direto, verificados manualmente — decisões em [`docs/decisoes-acervo-gratuito.md`](docs/decisoes-acervo-gratuito.md).
 
 ## Documentos
 
@@ -30,6 +30,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [`docs/decisoes-fase-7.md`](docs/decisoes-fase-7.md) — CSV corrige aspas não escapadas do protótipo Java, nunca exporta e-mail/senha, guard testado nas duas camadas (403 real + redirect)
 - [`docs/decisoes-fase-8.md`](docs/decisoes-fase-8.md) — contraste WCAG calculado (todas as combinações passam AA), alt text real nas capas, bug de responsividade achado e corrigido, título por rota, catálogo expandido pra ~22 livros reais
 - [`docs/decisoes-pos-deploy.md`](docs/decisoes-pos-deploy.md) — causa raiz do bug de redirecionamento pro localhost em produção (`AUTH_URL` nunca deve existir na Vercel), catálogo reescrito em português consistente, capas em resolução maior, refresh visual (`src/lib/ui.ts`), CSP `style-src` corrigida (achada só num build de produção real)
+- [`docs/decisoes-acervo-gratuito.md`](docs/decisoes-acervo-gratuito.md) — metodologia de verificação dos livros de domínio público (por que a maioria dos itens do Internet Archive é empréstimo, não download), os 5 livros escolhidos, por que é uma lista estática e não um model no banco
 
 Este projeto é 100% simulado no que toca pagamento: nenhuma integração com gateway real, nenhum dado financeiro real é coletado ou persistido.
 

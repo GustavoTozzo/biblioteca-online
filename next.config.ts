@@ -22,8 +22,9 @@ const cspDirectives = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline'",
-  // covers.openlibrary.org: capas de livro buscadas pelo admin na Open Library (Fase 3)
-  "img-src 'self' blob: data: https://covers.openlibrary.org",
+  // covers.openlibrary.org: capas buscadas pelo admin na Open Library (Fase 3).
+  // archive.org: capas do acervo de domínio público (/gratuitos).
+  "img-src 'self' blob: data: https://covers.openlibrary.org https://archive.org",
   "font-src 'self'",
   // openlibrary.org: busca de livros feita por Route Handlers no servidor, não
   // pelo browser — mas listado aqui por transparência com o que o app acessa.
@@ -54,6 +55,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "covers.openlibrary.org" },
+      { protocol: "https", hostname: "archive.org" },
     ],
   },
   async headers() {
