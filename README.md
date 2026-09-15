@@ -13,7 +13,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [x] **Fase 5** — Fluxo de assinatura (planos, checkout Pix/cartão, "Meus Livros" com acesso total) — decisões em [`docs/decisoes-fase-5.md`](docs/decisoes-fase-5.md)
 - [x] **Fase 6** — Leitor interno simulado, progresso de leitura e perfil — decisões em [`docs/decisoes-fase-6.md`](docs/decisoes-fase-6.md)
 - [x] **Fase 7** — Painel admin completo (lista de usuários, exportação CSV) — decisões em [`docs/decisoes-fase-7.md`](docs/decisoes-fase-7.md)
-- [ ] Fase 8 — Polish, testes, Lighthouse e deploy no Vercel — **bloqueada**: precisa de uma conta Vercel
+- [ ] Fase 8 — Polish (feito, ver [`docs/decisoes-fase-8.md`](docs/decisoes-fase-8.md)) + deploy no Vercel — **falta só o deploy**: precisa de uma conta Vercel
 
 ## Documentos
 
@@ -26,6 +26,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [`docs/decisoes-fase-5.md`](docs/decisoes-fase-5.md) — assinatura só aceita Pix/cartão, contratar novo plano cancela o anterior, "Meus Livros" já estava pronto pra composição com assinatura desde a Fase 2
 - [`docs/decisoes-fase-6.md`](docs/decisoes-fase-6.md) — barra de progresso sem `style` inline (CSP), acesso ao leitor sempre revalidado, e-mail/CPF não editáveis por design, bug de fuso na data de nascimento corrigido
 - [`docs/decisoes-fase-7.md`](docs/decisoes-fase-7.md) — CSV corrige aspas não escapadas do protótipo Java, nunca exporta e-mail/senha, guard testado nas duas camadas (403 real + redirect)
+- [`docs/decisoes-fase-8.md`](docs/decisoes-fase-8.md) — contraste WCAG calculado (todas as combinações passam AA), alt text real nas capas, bug de responsividade achado e corrigido, título por rota, catálogo expandido pra ~22 livros reais
 
 ## Pendências
 

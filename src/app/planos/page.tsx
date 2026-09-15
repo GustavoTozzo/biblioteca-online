@@ -1,8 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { auth } from "@/auth";
 import { buscarAssinaturaAtiva } from "@/lib/meus-livros";
 import { nomePlano, PLANOS } from "@/lib/planos";
+
+export const metadata: Metadata = { title: "Planos de assinatura" };
 
 export default async function PlanosPage() {
   const session = await auth();

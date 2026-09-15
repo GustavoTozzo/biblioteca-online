@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,6 +8,8 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
 import { LimparCarrinhoAoMontar } from "./limpar-carrinho-ao-montar";
+
+export const metadata: Metadata = { title: "Pagamento confirmado" };
 
 const RUBRICA_CODIGO: Record<string, string> = {
   PIX: "Chave Pix (simulada):",
@@ -84,7 +87,7 @@ export default async function SucessoAluguelPage({
                 {item.livro.capaUrl && (
                   <Image
                     src={item.livro.capaUrl}
-                    alt=""
+                    alt={`Capa de ${item.livro.titulo}`}
                     width={48}
                     height={72}
                     className="h-full w-full object-cover"

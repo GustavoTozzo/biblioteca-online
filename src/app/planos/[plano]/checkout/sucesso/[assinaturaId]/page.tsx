@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import QRCode from "qrcode";
@@ -5,6 +6,8 @@ import QRCode from "qrcode";
 import { auth } from "@/auth";
 import { nomePlano } from "@/lib/planos";
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = { title: "Assinatura ativada" };
 
 export default async function SucessoAssinaturaPage({
   params,

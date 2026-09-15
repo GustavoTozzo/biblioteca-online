@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
 import { auth } from "@/auth";
@@ -6,6 +7,19 @@ import { paginarTexto } from "@/lib/paginar-texto";
 import { prisma } from "@/lib/prisma";
 
 import { LeitorSimulado } from "./leitor-simulado";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ livroId: string }>;
+}): Promise<Metadata> {
+  const { livroId } = await params;
+  const livro = await prisma.livro.findUnique({
+    where: { id: livroId },
+    select: { titulo: true },
+  });
+  return livro ? { title: `Lendo ${livro.titulo}` } : {};
+}
 
 export default async function LerLivroPage({
   params,

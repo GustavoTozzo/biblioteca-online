@@ -89,7 +89,7 @@ export default async function Home({
                   {livro.capaUrl && (
                     <Image
                       src={livro.capaUrl}
-                      alt=""
+                      alt={`Capa de ${livro.titulo}`}
                       width={200}
                       height={300}
                       className="h-full w-full object-cover"

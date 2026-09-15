@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
 import { PerfilForm } from "./perfil-form";
+
+export const metadata: Metadata = { title: "Meus dados" };
 
 export default async function PerfilPage() {
   const session = await auth();

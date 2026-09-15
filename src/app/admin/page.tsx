@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = { title: "Admin: painel" };
 
 export default async function AdminDashboard() {
   const [totalLivros, totalUsuarios] = await Promise.all([

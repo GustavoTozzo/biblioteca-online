@@ -17,7 +17,10 @@ const literata = Literata({
 });
 
 export const metadata: Metadata = {
-  title: "Biblioteca Online",
+  title: {
+    template: "%s — Biblioteca Online",
+    default: "Biblioteca Online",
+  },
   description:
     "Biblioteca digital fictícia — aluguel de livros e assinatura, projeto de portfólio.",
 };

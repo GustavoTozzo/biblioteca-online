@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { excluirLivro } from "@/actions/livros";
 import { prisma } from "@/lib/prisma";
+
+export const metadata: Metadata = { title: "Admin: livros" };
 
 export default async function AdminLivrosPage({
   searchParams,
@@ -28,40 +31,42 @@ export default async function AdminLivrosPage({
       {livros.length === 0 ? (
         <p className="text-grafite">Nenhum livro cadastrado ainda.</p>
       ) : (
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="border-b border-grafite/20 text-grafite">
-              <th className="py-2">Título</th>
-              <th>Autor</th>
-              <th>Categoria</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {livros.map((livro) => (
-              <tr key={livro.id} className="border-b border-grafite/10">
-                <td className="py-2">{livro.titulo}</td>
-                <td>{livro.autor}</td>
-                <td>{livro.categoria}</td>
-                <td>
-                  <div className="flex gap-3 py-2">
-                    <Link
-                      href={`/admin/livros/${livro.id}/editar`}
-                      className="text-vinho underline"
-                    >
-                      Editar
-                    </Link>
-                    <form action={excluirLivro.bind(null, livro.id)}>
-                      <button type="submit" className="text-selo underline">
-                        Excluir
-                      </button>
-                    </form>
-                  </div>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[480px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-grafite/20 text-grafite">
+                <th className="py-2">Título</th>
+                <th>Autor</th>
+                <th>Categoria</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {livros.map((livro) => (
+                <tr key={livro.id} className="border-b border-grafite/10">
+                  <td className="py-2">{livro.titulo}</td>
+                  <td>{livro.autor}</td>
+                  <td>{livro.categoria}</td>
+                  <td>
+                    <div className="flex gap-3 py-2">
+                      <Link
+                        href={`/admin/livros/${livro.id}/editar`}
+                        className="text-vinho underline"
+                      >
+                        Editar
+                      </Link>
+                      <form action={excluirLivro.bind(null, livro.id)}>
+                        <button type="submit" className="text-selo underline">
+                          Excluir
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

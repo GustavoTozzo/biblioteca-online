@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -5,6 +6,8 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { buscarAssinaturaAtiva, buscarMeusLivros } from "@/lib/meus-livros";
 import { nomePlano } from "@/lib/planos";
+
+export const metadata: Metadata = { title: "Meus livros" };
 
 export default async function MeusLivrosPage() {
   const session = await auth();
@@ -40,7 +43,7 @@ export default async function MeusLivrosPage() {
                   {livro.capaUrl && (
                     <Image
                       src={livro.capaUrl}
-                      alt=""
+                      alt={`Capa de ${livro.titulo}`}
                       width={200}
                       height={300}
                       className="h-full w-full object-cover"

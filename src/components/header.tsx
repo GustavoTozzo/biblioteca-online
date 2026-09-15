@@ -8,11 +8,11 @@ export async function Header() {
   const session = await auth();
 
   return (
-    <header className="flex items-center justify-between gap-4 border-b border-grafite/20 px-6 py-4">
+    <header className="flex flex-col gap-3 border-b border-grafite/20 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6">
       <Link href="/" className="font-heading text-xl text-vinho italic">
         Biblioteca Online
       </Link>
-      <nav className="flex items-center gap-4 text-sm text-tinta">
+      <nav className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-tinta">
         <Link href="/planos" className="hover:text-vinho">
           Planos
         </Link>
