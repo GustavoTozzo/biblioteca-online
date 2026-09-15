@@ -1,0 +1,168 @@
+// Schema documentado com o porquê de cada decisão em docs/modelagem-dados.md.
+// Não editar sem atualizar aquele documento também.
+
+// Prisma 7: a connection URL não vive mais aqui, e sim em prisma.config.ts
+// (datasource.url, lido de DIRECT_URL) — o runtime da aplicação usa
+// DATABASE_URL (pooled) via driver adapter em src/lib/prisma.ts.
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum TipoUsuario {
+  CLIENTE
+  ADMINISTRADOR
+}
+
+enum FormaPagamento {
+  PIX
+  BOLETO
+  CARTAO
+}
+
+enum StatusPagamento {
+  CONFIRMADO
+  FALHOU
+}
+
+enum StatusAluguel {
+  ATIVO
+  EXPIRADO
+  CANCELADO
+}
+
+enum StatusAssinatura {
+  ATIVA
+  EXPIRADA
+  CANCELADA
+}
+
+enum PlanoAssinatura {
+  MENSAL
+  SEMESTRAL
+  ANUAL
+}
+
+model Usuario {
+  id             String   @id @default(cuid())
+  nomeCompleto   String
+  email          String   @unique
+  senhaHash      String
+  cpf            String   @unique
+  dataNascimento DateTime
+  telefone       String
+  cep            String
+  logradouro     String
+  numero         String
+  complemento    String?
+  bairro         String
+  cidade         String
+  estado         String
+  papel          TipoUsuario @default(CLIENTE)
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+
+  alugueis    Aluguel[]
+  assinaturas Assinatura[]
+  progressos  ProgressoLeitura[]
+
+  @@map("usuarios")
+}
+
+model Livro {
+  id            String   @id @default(cuid())
+  titulo        String
+  autor         String
+  descricao     String   @db.Text
+  categoria     String
+  capaUrl       String?
+  openLibraryId String?  @unique
+  criadoEm      DateTime @default(now())
+  atualizadoEm  DateTime @updatedAt
+
+  itens      ItemAluguel[]
+  progressos ProgressoLeitura[]
+
+  @@index([categoria])
+  @@map("livros")
+}
+
+model Aluguel {
+  id             String        @id @default(cuid())
+  usuarioId      String
+  usuario        Usuario       @relation(fields: [usuarioId], references: [id])
+  dias           Int
+  dataInicio     DateTime      @default(now())
+  dataFim        DateTime
+  valorTotal     Decimal       @db.Decimal(10, 2)
+  formaPagamento FormaPagamento
+  status         StatusAluguel @default(ATIVO)
+  transacaoId    String?       @unique
+  transacao      Transacao?    @relation(fields: [transacaoId], references: [id])
+  itens          ItemAluguel[]
+  criadoEm       DateTime      @default(now())
+
+  @@map("alugueis")
+}
+
+model ItemAluguel {
+  id            String  @id @default(cuid())
+  aluguelId     String
+  aluguel       Aluguel @relation(fields: [aluguelId], references: [id], onDelete: Cascade)
+  livroId       String
+  livro         Livro   @relation(fields: [livroId], references: [id])
+  valorUnitario Decimal @db.Decimal(10, 2)
+
+  @@unique([aluguelId, livroId])
+  @@map("itens_aluguel")
+}
+
+model Assinatura {
+  id                  String           @id @default(cuid())
+  usuarioId           String
+  usuario             Usuario          @relation(fields: [usuarioId], references: [id])
+  plano               PlanoAssinatura
+  dataInicio          DateTime         @default(now())
+  dataFim             DateTime
+  valor               Decimal          @db.Decimal(10, 2)
+  formaPagamento      FormaPagamento
+  status              StatusAssinatura @default(ATIVA)
+  renovacaoAutomatica Boolean          @default(false)
+  transacaoId         String?          @unique
+  transacao           Transacao?       @relation(fields: [transacaoId], references: [id])
+  criadoEm            DateTime         @default(now())
+
+  @@map("assinaturas")
+}
+
+model Transacao {
+  id             String          @id @default(cuid())
+  usuarioId      String
+  formaPagamento FormaPagamento
+  valor          Decimal         @db.Decimal(10, 2)
+  status         StatusPagamento @default(CONFIRMADO)
+  codigoFake     String
+  cartaoFinal4   String?
+  criadoEm       DateTime        @default(now())
+
+  aluguel    Aluguel?
+  assinatura Assinatura?
+
+  @@map("transacoes")
+}
+
+model ProgressoLeitura {
+  id           String   @id @default(cuid())
+  usuarioId    String
+  usuario      Usuario  @relation(fields: [usuarioId], references: [id])
+  livroId      String
+  livro        Livro    @relation(fields: [livroId], references: [id])
+  percentual   Int      @default(0)
+  atualizadoEm DateTime @updatedAt
+
+  @@unique([usuarioId, livroId])
+  @@map("progresso_leitura")
+}

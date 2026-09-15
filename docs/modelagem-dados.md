@@ -14,6 +14,8 @@ O admin busca, escolhe um resultado, o formulário é pré-preenchido (título, 
 
 ## Schema completo
 
+> **Atualizado na Fase 2**: o bloco abaixo mostra a intenção original (Prisma clássico). O Prisma 7 (versão realmente instalada) não aceita mais `url`/`directUrl` dentro de `schema.prisma` — a configuração de conexão foi movida para `prisma.config.ts`, e o `PrismaClient` passou a exigir um driver adapter. Ver `docs/decisoes-fase-2.md` para a configuração real (`@prisma/adapter-neon`, `DIRECT_URL` para migração via `prisma.config.ts`, `DATABASE_URL` pooled para o adapter em runtime). O restante do schema abaixo (models, enums, relações) é o que foi implementado, sem mudanças.
+
 ```prisma
 datasource db {
   provider  = "postgresql"
