@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useCarrinho } from "@/components/carrinho-provider";
+import { botaoPrimario, linkDiscreto, linkPerigo } from "@/lib/ui";
 
 export function CarrinhoContent() {
   const { itens, remover } = useCarrinho();
@@ -16,7 +17,7 @@ export function CarrinhoContent() {
         {itens.length === 0 ? (
           <p className="text-grafite">
             Seu carrinho está vazio.{" "}
-            <Link href="/" className="text-vinho underline">
+            <Link href="/" className={linkDiscreto}>
               Volte ao catálogo
             </Link>
             .
@@ -27,9 +28,9 @@ export function CarrinhoContent() {
               {itens.map((item) => (
                 <li
                   key={item.livroId}
-                  className="flex items-center gap-4 border-b border-grafite/10 pb-4"
+                  className="flex items-center gap-4 rounded-2xl border border-grafite/10 bg-white/50 p-3 shadow-sm"
                 >
-                  <div className="aspect-2/3 w-16 shrink-0 overflow-hidden rounded bg-grafite/10">
+                  <div className="aspect-2/3 w-16 shrink-0 overflow-hidden rounded-lg bg-grafite/8 shadow-sm ring-1 ring-black/5">
                     {item.capaUrl && (
                       <Image
                         src={item.capaUrl}
@@ -47,17 +48,14 @@ export function CarrinhoContent() {
                   <button
                     type="button"
                     onClick={() => remover(item.livroId)}
-                    className="text-sm text-selo underline"
+                    className={linkPerigo}
                   >
                     Remover
                   </button>
                 </li>
               ))}
             </ul>
-            <Link
-              href="/carrinho/checkout"
-              className="inline-block rounded bg-vinho px-4 py-2 text-papel"
-            >
+            <Link href="/carrinho/checkout" className={botaoPrimario}>
               Continuar para o checkout
             </Link>
           </>

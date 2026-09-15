@@ -6,6 +6,7 @@ import QRCode from "qrcode";
 import { auth } from "@/auth";
 import { nomePlano } from "@/lib/planos";
 import { prisma } from "@/lib/prisma";
+import { botaoPrimario, cartao } from "@/lib/ui";
 
 export const metadata: Metadata = { title: "Assinatura ativada" };
 
@@ -33,22 +34,27 @@ export default async function SucessoAssinaturaPage({
 
   return (
     <main className="flex-1 px-6 py-10">
-      <div className="mx-auto max-w-xl">
-        <h1 className="mb-4 font-heading text-3xl text-verde">
-          Assinatura ativada!
-        </h1>
+      <div className={`${cartao} mx-auto max-w-xl`}>
+        <div className="mb-4 flex items-center gap-3">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-verde/12 text-xl text-verde">
+            ✓
+          </span>
+          <h1 className="font-heading text-3xl text-verde">
+            Assinatura ativada!
+          </h1>
+        </div>
         <p className="mb-2 text-grafite">
           Plano {nomePlano(assinatura.plano)} ativo até{" "}
           {assinatura.dataFim.toLocaleDateString("pt-BR")} — acesso ilimitado
           ao acervo.
         </p>
-        <p className="mb-6 text-lg text-vinho">
+        <p className="mb-6 text-lg font-medium text-vinho">
           Valor pago: R${" "}
           {Number(assinatura.valor).toFixed(2).replace(".", ",")}
         </p>
 
         {assinatura.transacao && (
-          <div className="mb-6 rounded border border-grafite/20 p-4">
+          <div className="mb-6 rounded-xl border border-grafite/15 bg-grafite/4 p-4">
             <p className="mb-2 text-sm text-grafite">
               {assinatura.formaPagamento === "PIX"
                 ? "Chave Pix (simulada):"
@@ -64,7 +70,7 @@ export default async function SucessoAssinaturaPage({
                 alt="QR Code Pix simulado"
                 width={160}
                 height={160}
-                className="mt-4"
+                className="mt-4 rounded-lg shadow-sm"
               />
             )}
           </div>
@@ -77,7 +83,7 @@ export default async function SucessoAssinaturaPage({
           </p>
         )}
 
-        <Link href="/meus-livros" className="rounded bg-vinho px-4 py-2 text-papel">
+        <Link href="/meus-livros" className={botaoPrimario}>
           Ver Meus Livros
         </Link>
       </div>

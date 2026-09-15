@@ -1,6 +1,7 @@
 "use client";
 
 import { useCarrinho } from "@/components/carrinho-provider";
+import { botaoPrimario } from "@/lib/ui";
 
 type LivroResumo = {
   id: string;
@@ -25,7 +26,7 @@ export function AdicionarCarrinhoButton({ livro }: { livro: LivroResumo }) {
         })
       }
       disabled={jaNoCarrinho}
-      className="rounded bg-vinho px-4 py-2 text-papel disabled:opacity-60"
+      className={botaoPrimario}
     >
       {jaNoCarrinho ? "Já está no carrinho" : "Adicionar ao carrinho"}
     </button>

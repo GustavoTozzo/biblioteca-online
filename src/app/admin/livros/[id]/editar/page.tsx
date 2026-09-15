@@ -29,7 +29,7 @@ export default async function EditarLivroPage({
 
   return (
     <div>
-      <h1 className="mb-4 font-heading text-2xl text-vinho">Editar livro</h1>
+      <h1 className="mb-6 font-heading text-3xl text-vinho">Editar livro</h1>
       <EditarLivroForm livro={livro} />
     </div>
   );

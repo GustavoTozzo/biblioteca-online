@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { prisma } from "@/lib/prisma";
+import { botaoPrimario, botaoSecundario, campoInput, capaLivro, cartaoLivro } from "@/lib/ui";
 
 export default async function Home({
   searchParams,
@@ -35,26 +36,45 @@ export default async function Home({
   ]);
 
   return (
-    <main className="flex-1 px-6 py-10">
-      <div className="mx-auto max-w-5xl">
-        <h1 className="mb-2 font-heading text-4xl text-vinho italic">
-          Biblioteca Online
-        </h1>
-        <p className="mb-8 text-grafite">
-          Alugue livros digitais ou assine para acesso ilimitado ao acervo.
-        </p>
+    <main className="flex-1">
+      <section className="border-b border-grafite/10 bg-gradient-to-b from-dourado/8 to-transparent px-6 py-16 sm:px-8">
+        <div className="mx-auto max-w-5xl">
+          <p className="mb-3 text-sm font-medium tracking-wide text-dourado uppercase">
+            Sua estante, sem limites
+          </p>
+          <h1 className="mb-4 max-w-2xl font-heading text-5xl leading-tight text-vinho italic sm:text-6xl">
+            Biblioteca Online
+          </h1>
+          <p className="mb-8 max-w-lg text-lg text-grafite">
+            Alugue livros digitais avulsos ou assine um plano para acesso
+            ilimitado a todo o acervo.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/planos" className={botaoPrimario}>
+              Ver planos de assinatura
+            </Link>
+            <a href="#acervo" className={botaoSecundario}>
+              Explorar o acervo
+            </a>
+          </div>
+        </div>
+      </section>
 
-        <form className="mb-8 flex flex-wrap gap-2" action="/">
+      <div id="acervo" className="mx-auto max-w-5xl px-6 py-12 sm:px-8">
+        <form
+          className="mb-10 flex flex-wrap gap-3 rounded-2xl border border-grafite/10 bg-white/50 p-4 shadow-sm"
+          action="/"
+        >
           <input
             name="q"
             defaultValue={q}
             placeholder="Buscar por título ou autor..."
-            className="min-w-[200px] flex-1 rounded border border-grafite/40 bg-white px-3 py-2"
+            className={`${campoInput} min-w-[200px] flex-1`}
           />
           <select
             name="categoria"
             defaultValue={categoria ?? ""}
-            className="rounded border border-grafite/40 bg-white px-3 py-2"
+            className={`${campoInput} w-auto`}
           >
             <option value="">Todas as categorias</option>
             {categoriasBrutas.map((c) => (
@@ -63,10 +83,7 @@ export default async function Home({
               </option>
             ))}
           </select>
-          <button
-            type="submit"
-            className="rounded bg-vinho px-4 py-2 text-papel"
-          >
+          <button type="submit" className={botaoPrimario}>
             Buscar
           </button>
         </form>
@@ -78,14 +95,10 @@ export default async function Home({
               : "Nenhum livro cadastrado ainda — volte em breve."}
           </p>
         ) : (
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
             {livros.map((livro) => (
-              <Link
-                key={livro.id}
-                href={`/livros/${livro.id}`}
-                className="group flex flex-col gap-2"
-              >
-                <div className="aspect-2/3 overflow-hidden rounded bg-grafite/10">
+              <Link key={livro.id} href={`/livros/${livro.id}`} className={cartaoLivro}>
+                <div className={capaLivro}>
                   {livro.capaUrl && (
                     <Image
                       src={livro.capaUrl}
@@ -96,10 +109,12 @@ export default async function Home({
                     />
                   )}
                 </div>
-                <span className="font-heading text-tinta group-hover:text-vinho">
-                  {livro.titulo}
-                </span>
-                <span className="text-sm text-grafite">{livro.autor}</span>
+                <div>
+                  <p className="font-heading text-tinta transition-colors group-hover:text-vinho">
+                    {livro.titulo}
+                  </p>
+                  <p className="text-sm text-grafite">{livro.autor}</p>
+                </div>
               </Link>
             ))}
           </div>

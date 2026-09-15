@@ -6,8 +6,7 @@ import type { FormaPagamento } from "@prisma/client";
 
 import { criarAssinatura } from "@/actions/assinatura";
 import type { PlanoInfo } from "@/lib/planos";
-
-const campoClasse = "rounded border border-grafite/40 bg-white px-3 py-2";
+import { botaoPrimario, campoInput, cartao, faixaAviso, faixaErro } from "@/lib/ui";
 
 type FormaPagamentoAssinatura = Extract<FormaPagamento, "PIX" | "CARTAO">;
 
@@ -34,16 +33,16 @@ export function CheckoutAssinaturaForm({ plano }: { plano: PlanoInfo }) {
 
   return (
     <main className="flex-1 px-6 py-10">
-      <div className="mx-auto max-w-xl">
+      <div className={`${cartao} mx-auto max-w-xl`}>
         <h1 className="mb-4 font-heading text-3xl text-vinho">
           Assinar plano {plano.nome}
         </h1>
-        <p className="mb-6 text-lg text-vinho">
+        <p className="mb-6 text-lg font-medium text-vinho">
           R$ {plano.preco.toFixed(2).replace(".", ",")}
         </p>
 
         <fieldset className="mb-4 flex flex-col gap-2">
-          <legend className="mb-1 text-sm text-tinta">
+          <legend className="mb-1 text-sm font-medium text-tinta">
             Forma de pagamento
           </legend>
           <label className="flex items-center gap-2 text-sm text-tinta">
@@ -52,6 +51,7 @@ export function CheckoutAssinaturaForm({ plano }: { plano: PlanoInfo }) {
               name="formaPagamento"
               checked={formaPagamento === "PIX"}
               onChange={() => setFormaPagamento("PIX")}
+              className="accent-vinho"
             />
             Pix
           </label>
@@ -61,14 +61,15 @@ export function CheckoutAssinaturaForm({ plano }: { plano: PlanoInfo }) {
               name="formaPagamento"
               checked={formaPagamento === "CARTAO"}
               onChange={() => setFormaPagamento("CARTAO")}
+              className="accent-vinho"
             />
             Cartão de crédito (renovação automática)
           </label>
         </fieldset>
 
         {formaPagamento === "CARTAO" && (
-          <div className="mb-4 flex flex-col gap-3 rounded border border-grafite/20 p-4">
-            <p className="text-xs text-selo italic">
+          <div className="mb-4 flex flex-col gap-3 rounded-xl border border-grafite/15 bg-grafite/4 p-4">
+            <p className={faixaAviso}>
               Pagamento simulado — projeto de portfólio, não insira dados
               financeiros reais.
             </p>
@@ -76,45 +77,45 @@ export function CheckoutAssinaturaForm({ plano }: { plano: PlanoInfo }) {
               placeholder="Número do cartão"
               value={numeroCartao}
               onChange={(e) => setNumeroCartao(e.target.value)}
-              className={campoClasse}
+              className={campoInput}
             />
             <input
               placeholder="Nome impresso no cartão"
               value={nomeCartao}
               onChange={(e) => setNomeCartao(e.target.value)}
-              className={campoClasse}
+              className={campoInput}
             />
             <div className="flex gap-2">
               <input
                 placeholder="MM/AA"
                 value={validadeCartao}
                 onChange={(e) => setValidadeCartao(e.target.value)}
-                className={`${campoClasse} w-24`}
+                className={`${campoInput} w-24`}
               />
               <input
                 placeholder="CVV"
                 value={cvv}
                 onChange={(e) => setCvv(e.target.value)}
-                className={`${campoClasse} w-20`}
+                className={`${campoInput} w-20`}
               />
             </div>
           </div>
         )}
 
         {formaPagamento === "PIX" && (
-          <p className="mb-4 text-xs text-selo italic">
+          <p className={`${faixaAviso} mb-4`}>
             Pagamento simulado — projeto de portfólio, nenhuma cobrança real é
             feita.
           </p>
         )}
 
-        {erro && <p className="mb-4 text-sm text-selo">{erro}</p>}
+        {erro && <p className={`${faixaErro} mb-4`}>{erro}</p>}
 
         <button
           type="button"
           onClick={confirmar}
           disabled={pending}
-          className="rounded bg-vinho px-4 py-2 text-papel disabled:opacity-60"
+          className={botaoPrimario}
         >
           {pending ? "Confirmando..." : "Confirmar assinatura"}
         </button>

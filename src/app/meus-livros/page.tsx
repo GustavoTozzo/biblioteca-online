@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { buscarAssinaturaAtiva, buscarMeusLivros } from "@/lib/meus-livros";
 import { nomePlano } from "@/lib/planos";
+import { capaLivro, faixaSucesso, linkDiscreto } from "@/lib/ui";
 
 export const metadata: Metadata = { title: "Meus livros" };
 
@@ -19,12 +20,12 @@ export default async function MeusLivrosPage() {
   ]);
 
   return (
-    <main className="flex-1 px-6 py-10">
+    <main className="flex-1 px-6 py-12 sm:px-8">
       <div className="mx-auto max-w-5xl">
-        <h1 className="mb-6 font-heading text-3xl text-vinho">Meus livros</h1>
+        <h1 className="mb-6 font-heading text-4xl text-vinho">Meus livros</h1>
 
         {assinaturaAtiva && (
-          <p className="mb-6 rounded border border-verde/40 bg-verde/10 px-4 py-3 text-verde">
+          <p className={`${faixaSucesso} mb-8`}>
             Assinatura {nomePlano(assinaturaAtiva.plano)} ativa até{" "}
             {assinaturaAtiva.dataFim.toLocaleDateString("pt-BR")} — acesso
             total ao acervo.
@@ -36,10 +37,10 @@ export default async function MeusLivrosPage() {
             Você ainda não tem livros alugados nem uma assinatura ativa.
           </p>
         ) : (
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
             {livros.map((livro) => (
-              <div key={livro.livroId} className="flex flex-col gap-2">
-                <div className="aspect-2/3 overflow-hidden rounded bg-grafite/10">
+              <div key={livro.livroId} className="flex flex-col gap-3">
+                <div className={capaLivro}>
                   {livro.capaUrl && (
                     <Image
                       src={livro.capaUrl}
@@ -50,18 +51,20 @@ export default async function MeusLivrosPage() {
                     />
                   )}
                 </div>
-                <span className="font-heading text-tinta">{livro.titulo}</span>
-                <span className="text-sm text-grafite">
-                  {livro.origem === "ASSINATURA"
-                    ? "Via assinatura"
-                    : `Disponível até ${livro.disponivelAte?.toLocaleDateString("pt-BR")}`}
-                </span>
-                <Link
-                  href={`/meus-livros/${livro.livroId}/ler`}
-                  className="text-sm text-vinho underline"
-                >
-                  Ler
-                </Link>
+                <div>
+                  <p className="font-heading text-tinta">{livro.titulo}</p>
+                  <p className="text-sm text-grafite">
+                    {livro.origem === "ASSINATURA"
+                      ? "Via assinatura"
+                      : `Disponível até ${livro.disponivelAte?.toLocaleDateString("pt-BR")}`}
+                  </p>
+                  <Link
+                    href={`/meus-livros/${livro.livroId}/ler`}
+                    className={linkDiscreto}
+                  >
+                    Ler
+                  </Link>
+                </div>
               </div>
             ))}
           </div>

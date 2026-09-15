@@ -6,6 +6,7 @@ import QRCode from "qrcode";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { botaoPrimario, cartao } from "@/lib/ui";
 
 import { LimparCarrinhoAoMontar } from "./limpar-carrinho-ao-montar";
 
@@ -41,12 +42,17 @@ export default async function SucessoAluguelPage({
 
   return (
     <main className="flex-1 px-6 py-10">
-      <div className="mx-auto max-w-xl">
+      <div className={`${cartao} mx-auto max-w-xl`}>
         <LimparCarrinhoAoMontar />
 
-        <h1 className="mb-4 font-heading text-3xl text-verde">
-          Pagamento confirmado!
-        </h1>
+        <div className="mb-4 flex items-center gap-3">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-verde/12 text-xl text-verde">
+            ✓
+          </span>
+          <h1 className="font-heading text-3xl text-verde">
+            Pagamento confirmado!
+          </h1>
+        </div>
         <p className="mb-2 text-grafite">
           {aluguel.itens.length} livro
           {aluguel.itens.length > 1 ? "s" : ""} alugado
@@ -55,12 +61,12 @@ export default async function SucessoAluguelPage({
           {aluguel.itens.length > 1 ? "is" : "l"} até{" "}
           {aluguel.dataFim.toLocaleDateString("pt-BR")}.
         </p>
-        <p className="mb-6 text-lg text-vinho">
+        <p className="mb-6 text-lg font-medium text-vinho">
           Valor pago: R$ {Number(aluguel.valorTotal).toFixed(2).replace(".", ",")}
         </p>
 
         {aluguel.transacao && (
-          <div className="mb-6 rounded border border-grafite/20 p-4">
+          <div className="mb-6 rounded-xl border border-grafite/15 bg-grafite/4 p-4">
             <p className="mb-2 text-sm text-grafite">
               {RUBRICA_CODIGO[aluguel.formaPagamento]}
             </p>
@@ -74,7 +80,7 @@ export default async function SucessoAluguelPage({
                 alt="QR Code Pix simulado"
                 width={160}
                 height={160}
-                className="mt-4"
+                className="mt-4 rounded-lg shadow-sm"
               />
             )}
           </div>
@@ -83,7 +89,7 @@ export default async function SucessoAluguelPage({
         <ul className="mb-6 flex flex-col gap-3">
           {aluguel.itens.map((item) => (
             <li key={item.id} className="flex items-center gap-3">
-              <div className="aspect-2/3 w-12 shrink-0 overflow-hidden rounded bg-grafite/10">
+              <div className="aspect-2/3 w-12 shrink-0 overflow-hidden rounded-lg bg-grafite/8 shadow-sm ring-1 ring-black/5">
                 {item.livro.capaUrl && (
                   <Image
                     src={item.livro.capaUrl}
@@ -99,7 +105,7 @@ export default async function SucessoAluguelPage({
           ))}
         </ul>
 
-        <Link href="/meus-livros" className="rounded bg-vinho px-4 py-2 text-papel">
+        <Link href="/meus-livros" className={botaoPrimario}>
           Ver Meus Livros
         </Link>
       </div>

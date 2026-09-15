@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useActionState } from "react";
 
 import { criarLivro } from "@/actions/livros";
+import { botaoAcento, botaoPrimario, campoInput, faixaErro, linkDiscreto, rotulo } from "@/lib/ui";
 
 type ResultadoBusca = {
   openLibraryId: string;
@@ -14,9 +15,6 @@ type ResultadoBusca = {
   categoriaSugerida: string | null;
   capaUrl: string | null;
 };
-
-const campoClasse = "rounded border border-grafite/40 bg-white px-3 py-2";
-const labelClasse = "flex flex-col gap-1 text-sm text-tinta";
 
 export function NovoLivroForm() {
   const [query, setQuery] = useState("");
@@ -72,32 +70,28 @@ export function NovoLivroForm() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="mb-4 font-heading text-2xl text-vinho">Novo livro</h1>
+      <h1 className="mb-6 font-heading text-3xl text-vinho">Novo livro</h1>
 
       <form onSubmit={buscar} className="mb-6 flex gap-2">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Buscar na Open Library (título, autor...)"
-          className={`${campoClasse} flex-1`}
+          className={`${campoInput} flex-1`}
         />
-        <button
-          type="submit"
-          disabled={buscando}
-          className="rounded bg-verde px-4 py-2 text-papel disabled:opacity-60"
-        >
+        <button type="submit" disabled={buscando} className={botaoAcento}>
           {buscando ? "Buscando..." : "Buscar"}
         </button>
       </form>
 
-      {erroBusca && <p className="mb-4 text-sm text-selo">{erroBusca}</p>}
+      {erroBusca && <p className={`${faixaErro} mb-4`}>{erroBusca}</p>}
 
       {resultados.length > 0 && (
-        <ul className="mb-8 flex max-h-72 flex-col gap-2 overflow-y-auto rounded border border-grafite/20 p-2">
+        <ul className="mb-8 flex max-h-72 flex-col gap-1 overflow-y-auto rounded-2xl border border-grafite/12 bg-white/60 p-2 shadow-sm">
           {resultados.map((r) => (
             <li
               key={r.openLibraryId}
-              className="flex items-center gap-3 border-b border-grafite/10 pb-2 last:border-0"
+              className="flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-vinho/5"
             >
               {r.capaUrl ? (
                 <Image
@@ -105,10 +99,10 @@ export function NovoLivroForm() {
                   alt={`Capa de ${r.titulo}`}
                   width={32}
                   height={48}
-                  className="h-12 w-8 object-cover"
+                  className="h-12 w-8 rounded object-cover shadow-sm"
                 />
               ) : (
-                <div className="h-12 w-8 bg-grafite/10" />
+                <div className="h-12 w-8 rounded bg-grafite/10" />
               )}
               <span className="flex-1 text-sm">
                 {r.titulo} — {r.autor}
@@ -117,7 +111,7 @@ export function NovoLivroForm() {
               <button
                 type="button"
                 onClick={() => usar(r)}
-                className="text-sm text-vinho underline"
+                className={linkDiscreto}
               >
                 Usar
               </button>
@@ -130,27 +124,27 @@ export function NovoLivroForm() {
         <input type="hidden" name="capaUrl" value={capaUrl} />
         <input type="hidden" name="openLibraryId" value={openLibraryId} />
 
-        <label className={labelClasse}>
+        <label className={rotulo}>
           Título
           <input
             name="titulo"
             required
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
-            className={campoClasse}
+            className={campoInput}
           />
         </label>
-        <label className={labelClasse}>
+        <label className={rotulo}>
           Autor
           <input
             name="autor"
             required
             value={autor}
             onChange={(e) => setAutor(e.target.value)}
-            className={campoClasse}
+            className={campoInput}
           />
         </label>
-        <label className={labelClasse}>
+        <label className={rotulo}>
           Descrição
           <textarea
             name="descricao"
@@ -158,27 +152,23 @@ export function NovoLivroForm() {
             rows={4}
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
-            className={campoClasse}
+            className={campoInput}
           />
         </label>
-        <label className={labelClasse}>
+        <label className={rotulo}>
           Categoria
           <input
             name="categoria"
             required
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
-            className={campoClasse}
+            className={campoInput}
           />
         </label>
 
-        {erroSalvar && <p className="text-sm text-selo">{erroSalvar}</p>}
+        {erroSalvar && <p className={faixaErro}>{erroSalvar}</p>}
 
-        <button
-          type="submit"
-          disabled={salvando}
-          className="rounded bg-vinho px-4 py-2 text-papel disabled:opacity-60"
-        >
+        <button type="submit" disabled={salvando} className={botaoPrimario}>
           {salvando ? "Salvando..." : "Salvar no acervo"}
         </button>
       </form>

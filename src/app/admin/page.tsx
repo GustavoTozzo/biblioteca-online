@@ -13,23 +13,23 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <h1 className="mb-4 font-heading text-2xl text-vinho">
+      <h1 className="mb-6 font-heading text-3xl text-vinho">
         Painel administrativo
       </h1>
-      <div className="flex gap-4">
+      <div className="flex flex-wrap gap-4">
         <Link
           href="/admin/livros"
-          className="rounded border border-grafite/20 p-4 hover:border-vinho"
+          className="rounded-2xl border border-grafite/12 bg-white/70 p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
         >
           <p className="text-sm text-grafite">Livros no acervo</p>
-          <p className="text-3xl text-vinho">{totalLivros}</p>
+          <p className="text-3xl font-medium text-vinho">{totalLivros}</p>
         </Link>
         <Link
           href="/admin/usuarios"
-          className="rounded border border-grafite/20 p-4 hover:border-vinho"
+          className="rounded-2xl border border-grafite/12 bg-white/70 p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
         >
           <p className="text-sm text-grafite">Usuários cadastrados</p>
-          <p className="text-3xl text-vinho">{totalUsuarios}</p>
+          <p className="text-3xl font-medium text-vinho">{totalUsuarios}</p>
         </Link>
       </div>
     </div>

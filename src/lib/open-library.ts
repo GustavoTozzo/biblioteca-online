@@ -24,8 +24,11 @@ type OpenLibrarySearchResponse = {
   docs: OpenLibrarySearchDoc[];
 };
 
+// "-L" (large, ~500px) em vez de "-M" (~180px) — a capa "-M" ficava borrada/
+// esticada quando exibida nos tamanhos usados pelo catálogo e pela página de
+// detalhe (até 300px de largura), mesmo com object-cover aplicado.
 export function capaUrlPorCoverId(coverId: number): string {
-  return `https://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
+  return `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
 }
 
 export async function buscarLivrosOpenLibrary(

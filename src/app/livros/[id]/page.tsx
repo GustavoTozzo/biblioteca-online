@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 
 import { prisma } from "@/lib/prisma";
+import { linkDiscreto } from "@/lib/ui";
 
 import { AdicionarCarrinhoButton } from "./adicionar-carrinho-button";
 
@@ -34,25 +35,28 @@ export default async function LivroDetalhePage({
   if (!livro) notFound();
 
   return (
-    <main className="flex-1 px-6 py-10">
-      <div className="mx-auto flex max-w-3xl flex-col gap-8 sm:flex-row">
-        <div className="aspect-2/3 w-48 shrink-0 overflow-hidden rounded bg-grafite/10">
+    <main className="flex-1 px-6 py-12 sm:px-8">
+      <div className="mx-auto flex max-w-3xl flex-col gap-10 sm:flex-row">
+        <div className="aspect-2/3 w-48 shrink-0 overflow-hidden rounded-2xl bg-grafite/8 shadow-md ring-1 ring-black/5 sm:w-56">
           {livro.capaUrl && (
             <Image
               src={livro.capaUrl}
               alt={`Capa de ${livro.titulo}`}
-              width={300}
-              height={450}
+              width={400}
+              height={600}
               className="h-full w-full object-cover"
             />
           )}
         </div>
-        <div>
-          <h1 className="font-heading text-3xl text-vinho">{livro.titulo}</h1>
-          <p className="mb-4 text-grafite">
-            {livro.autor} · {livro.categoria}
+        <div className="flex-1">
+          <span className="mb-3 inline-block rounded-full bg-dourado/15 px-3 py-1 text-xs font-medium tracking-wide text-dourado uppercase">
+            {livro.categoria}
+          </span>
+          <h1 className="mb-2 font-heading text-4xl text-vinho">{livro.titulo}</h1>
+          <p className="mb-6 text-grafite">{livro.autor}</p>
+          <p className="mb-8 leading-relaxed whitespace-pre-line text-tinta">
+            {livro.descricao}
           </p>
-          <p className="mb-6 whitespace-pre-line text-tinta">{livro.descricao}</p>
           <AdicionarCarrinhoButton
             livro={{
               id: livro.id,
@@ -63,7 +67,7 @@ export default async function LivroDetalhePage({
           />
           <p className="mt-4 text-sm text-grafite">
             Prefere acesso ilimitado?{" "}
-            <Link href="/planos" className="text-vinho underline">
+            <Link href="/planos" className={linkDiscreto}>
               Veja os planos de assinatura
             </Link>
             .
