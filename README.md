@@ -9,7 +9,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [x] **Fase 1** — Plano de design e modelagem de dados
 - [x] **Fase 2** — Setup (Next.js 16, Tailwind v4, Prisma + Neon, NextAuth/Auth.js, CSP, CI) — decisões em [`docs/decisoes-fase-2.md`](docs/decisoes-fase-2.md)
 - [x] **Fase 3** — Catálogo público, cadastro/login, painel admin com busca na Open Library — decisões em [`docs/decisoes-fase-3.md`](docs/decisoes-fase-3.md)
-- [ ] Fase 4 — Fluxo de aluguel unitário
+- [x] **Fase 4** — Fluxo de aluguel unitário (carrinho, checkout, pagamento simulado, "Meus Livros") — decisões em [`docs/decisoes-fase-4.md`](docs/decisoes-fase-4.md)
 - [ ] Fase 5 — Fluxo de assinatura
 - [ ] Fase 6 — Leitor interno simulado + progresso de leitura + perfil
 - [ ] Fase 7 — Painel admin completo (CRUD de livros, usuários, exportação CSV)
@@ -22,6 +22,7 @@ Inspirada no projeto de bloco acadêmico entregue em `../biblioteca-infnet-main/
 - [`docs/modelagem-dados.md`](docs/modelagem-dados.md) — schema Prisma completo e o porquê de cada decisão (granularidade do aluguel, integração Open Library, composição de "Meus Livros", o que nunca é persistido no pagamento simulado)
 - [`docs/decisoes-fase-2.md`](docs/decisoes-fase-2.md) — mudança de configuração do Prisma 7 (datasource saiu do `schema.prisma`), driver adapter da Neon, NextAuth/Auth.js v5, CSP testada empiricamente
 - [`docs/decisoes-fase-3.md`](docs/decisoes-fase-3.md) — integração Open Library confirmada em uso real, padrão `signIn(FormData)` com `redirectTo`, papel do usuário nunca vem do formulário público, validação de CPF (checksum), exclusão de livro protegida por integridade referencial
+- [`docs/decisoes-fase-4.md`](docs/decisoes-fase-4.md) — carrinho com `useSyncExternalStore`, Server Action chamada fora de formulário via `useActionState`+`startTransition`, servidor nunca confia em preço/dados vindos do cliente, cartão nunca persiste além dos 4 últimos dígitos
 
 ## Pendências
 

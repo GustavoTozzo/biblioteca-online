@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Literata, Newsreader } from "next/font/google";
 import "./globals.css";
 
+import { CarrinhoProvider } from "@/components/carrinho-provider";
 import { Header } from "@/components/header";
 
 const newsreader = Newsreader({
@@ -28,8 +29,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${newsreader.variable} ${literata.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
+        <CarrinhoProvider>
+          <Header />
+          {children}
+        </CarrinhoProvider>
       </body>
     </html>
   );

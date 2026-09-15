@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { sair } from "@/actions/auth";
 import { auth } from "@/auth";
+import { CartBadge } from "@/components/cart-badge";
 
 export async function Header() {
   const session = await auth();
@@ -12,6 +13,7 @@ export async function Header() {
         Biblioteca Online
       </Link>
       <nav className="flex items-center gap-4 text-sm text-tinta">
+        <CartBadge />
         {session?.user ? (
           <>
             {session.user.papel === "ADMINISTRADOR" && (
@@ -19,6 +21,9 @@ export async function Header() {
                 Painel admin
               </Link>
             )}
+            <Link href="/meus-livros" className="hover:text-vinho">
+              Meus livros
+            </Link>
             <span className="text-grafite">{session.user.name}</span>
             <form action={sair}>
               <button type="submit" className="hover:text-vinho">
