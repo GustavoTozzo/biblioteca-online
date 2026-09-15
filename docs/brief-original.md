@@ -1,7 +1,5 @@
 # Briefing original — Sua Biblioteca Online
 
-> Transcrição consolidada dos dois PDFs do trabalho acadêmico (`biblioteca_at.pdf` e `biblioteca_tps.pdf`, em `biblioteca-infnet-main/`), preservada aqui para sobreviver independente dos PDFs. Esta é a fonte de verdade do domínio/casos de uso — a implementação em Next.js parte daqui, não do código Java (que ficou incompleto).
-
 ## Time e cenário
 
 Projeto de bloco da Infnet — "Desenvolvimento Back-End": Julia Batista Canalle, Gustavo Tozzo Campos, Sara Vanick da Costa.
